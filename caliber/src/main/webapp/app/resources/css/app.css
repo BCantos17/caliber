@@ -1,0 +1,163 @@
+/************************
+	Revature Fonts
+************************/
+
+@font-face {
+  font-family: 'Futura-Std-Medium';
+  src: url('fonts/Futura-Std-Medium.otf')  format('opentype');
+}
+
+@font-face {
+  font-family: 'Futura-Std-Book';
+  src: url('fonts/Futura-Std-Book.otf')  format('opentype');
+}
+
+@font-face {
+  font-family: 'Futura-Std-Heavy';
+  src: url('fonts/Futura-Std-Heavy.otf')  format('opentype');
+}
+
+@font-face {
+  font-family: 'Futura-Std-Bold';
+  src: url('fonts/Futura-Std-Bold.otf')  format('opentype');
+}
+
+body {font-family: 'Futura-Std-Book'; }
+th { font-family: 'Futura-Std-Bold'; }
+li { font-family: 'Futura-Std-Heavy'; }
+
+
+/************************
+	Revature Colors
+************************/
+
+:root {
+/*** Primary Colors ***/
+	--orange: #F26925;
+	--white: #FFFFF;
+	--dark-grey: #474C55;
+/*** Secondary Colors ***/
+	--blue:  #72A4C2;
+	--yellow: #FCB414;
+	--light-grey: #B9B9BA;
+}
+
+
+/**********************
+	Header
+**********************/
+
+.navbar-right{ margin-top: .75em; margin-right: 5em; }
+.header-styles{	background-color: white; }
+a { color: #F26925;}
+
+
+/**********************
+	Chart Containers
+**********************/
+
+.nav>li>a, .nav>li>a {
+    transition: background-color 1s ease;
+}
+
+.data-container {
+	padding: .5em 1em 1em 1em;
+	border-radius: .5em;
+}
+
+.chart-container {
+	padding: .5em;
+	background-color: #ffffff;
+	border-radius: .3em;
+}
+
+.panel > .panel-heading {
+	background-image: none;
+	background-color: #B9B9BA;
+	color: white;
+
+}
+
+/************************
+	Manage Batch
+************************/
+
+.modal-header {
+	background-color: #f1f2f4;
+	border-radius: 6px;
+}
+.scrollable-div{
+	width: 550px;
+	height: 200px;
+	overflow-y: scroll;
+}
+
+.glyphicon { top: 0px; }
+.glyphicon-plus { padding-left: .5em; }
+.glyphicon-user { padding-left: .5em; }
+.glyph-top-margin { padding-top: 2em; }
+
+.btn-primary {
+	color: white !important;
+	border-color: white !important;
+	background-color: #F26925 !important;
+	background-image: none;
+}
+
+
+/************************
+	Manage Batch
+************************/
+
+.fa-smile-o { color: green; }
+.fa-meh-o { color: yellow; }
+.fa-frown-o { color: red; }
+
+/************************
+	Margins
+************************/
+
+.top5 { margin-top: .5em; }
+.top10 { margin-top: 1em; }
+.top15 { margin-top: 1.5em; }
+.top20 { margin-top: 2em; }
+.top25 { margin-top: 2.5em; }
+.top30 { margin-top: 3em; }
+.top35 { margin-top: 35em; }
+.top40 { margin-top: 40em; }
+.top45 { margin-top: 45em; }
+
+/* Accordion style tables*/
+.hiddenRow td{
+    padding: 0 !important;
+}
+
+/************************
+	Footer
+************************/
+
+.footer-margin{ margin-top: .85em; }
+.footer-img { margin-top: 1.5em; }
+
+/* Footer, set footer height to actual height of footer*/
+html, body {
+	height: 100%;
+}
+.wrapper {
+	min-height: 100%;
+	margin-bottom: -103px;
+	padding-bottom: 103px;
+}
+footer {
+	height: 103px;
+	background-color: #474C55;
+    font-size: .75em;
+}
+
+.center{ text-align: center;}
+.contact-info{	color: #B9B9BA; }
+.fa-copyright { padding-right: .5em; }
+
+footer a, footer a:hover{
+	color: #B9B9BA;
+}

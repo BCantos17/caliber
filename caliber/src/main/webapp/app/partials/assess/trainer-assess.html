@@ -1,0 +1,161 @@
+<!-- Year selector and Add Assessment button -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12" ng-show="!currentView">
+            <button class="btn back-btn" ng-click="back()">
+                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back
+            </button>
+        </div>
+        <div class="col-md-12 col-lg-12 top10">
+            <!-- top ui for viewing all assessments -->
+            <ul class="nav nav-tabs" ng-show="currentView">
+                <li role="button" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        {{ currentBatch.trainingName }} - {{ currentBatch.startDate | date:'shortDate' }}
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="batch in batches track by $index">
+                            <a role="button" ng-click="selectCurrentBatch($index)">
+                                {{ batch.trainingName }} - {{ batch.startDate | date:'shortDate' }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Button Trigger for Create Assessment Modal -->
+                <li role="button" class="pull-right" ng-show="currentView"
+                    data-toggle="modal" data-target="#createAssessmentModal">
+                    <a>Create Assessment<span class="glyphicon glyphicon-plus" aria-hidden="true">
+                    </span></a>
+                </li>
+            </ul>
+            <!-- top ui for viewing trainee grades -->
+            <ul class="nav nav-tabs" ng-show="!currentView">
+                <li role="button" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">{{ currentAssessment.title }}<span
+                            class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="assessment in currentAssessments track by $index">
+                            <a role="button" ng-click="selectAssessment($index)">{{ assessment.title }}</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Button Trigger for Create Assessment Modal -->
+                <li role="button" class="pull-right" ng-show="currentView" data-toggle="modal"
+                    data-target="#createAssessmentModal">
+                    <a>Create Assessment<span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12 top5">
+            <ul class="nav nav-tabs">
+                <li role="button" class="{{showActiveWeek($index)}}" ng-click="selectWeek($index)"
+                    ng-repeat="week in currentBatch.weeks track by $index">
+                    <a>Week {{week.weekNumber}}</a></li>
+                <!-- Button Trigger for Create Week Modal -->
+                <li role="button" ng-show="currentView" ng-click="createWeek()">
+                    <a><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Assessments table -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 top5">
+            <!-- Accordian table -->
+            <table class="table table-condensed" style="border-collapse:collapse;" ng-show="currentView">
+                <thead>
+                <tr>
+                    <th>Trainee</th>
+                    <th role="button" ng-repeat="assessment in currentAssessments track by $index">
+                        {{assessment.title}}
+                    </th>
+                    <th>Notes</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr role="button" ng-repeat="trainee in currentBatch.trainees track by $index">
+                    <td>{{ trainee.name }}</td>
+                    <td ng-repeat="assessment in currentAssessments track by $index">
+                        <input class="form-control" type="number" width="10px"
+                               min="0" max="{{assessment.rawScore}}" id="{{trainee.traineeId}}{{assessment.assessmentId}}"
+                               ng-blur="updateGrade(trainee.traineeId,assessment)">
+                    </td>
+                    <td>
+                        <textarea class="form-control" name="note" cols="20" rows="2"></textarea>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+            <table class="col-md-6 table table-condensed" ng-show="!currentView">
+                <tr>
+                    <th>Name</th>
+                    <th>Score</th>
+                </tr>
+                <tr ng-repeat="trainee in currentBatch.trainees">
+                    <td>{{ trainee.name }}</td>
+                    <td>{{ findGrade(trainee.traineeId) }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Create Batch Modal -->
+<div class="modal fade" id="createAssessmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+
+                <h4 class="modal-title" id="myModalLabel">Create New Assessment</h4>
+            </div>
+            <!-- Add Batch Info -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-md-6 col-sm-6">
+                        <label for="trainingName">Training Name:</label>
+                        <input ng-model="trainingName" type="text" class="form-control" id="trainingName"
+                               placeholder="Title" required>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-6">
+                        <label for="trainingType">Training type:</label>
+                        <input ng-model="trainingType" type="text" class="form-control" id="trainingType"
+                               placeholder="Training Type" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6 col-sm-6">
+                        <label>Skill Type:</label>
+                        <br>
+                        <!--<select class="form-control" ng-model="skillType" id="skillType"-->
+                        <!--ng-options="category as category.skillCategory for category in skill_categories" ng-change="updateSkillCategory()">-->
+                        <!--</select>-->
+                        <span ng-repeat="category in skill_categories track by $index">
+                            <input type="checkbox" ng-checked="selectedCategories.indexOf(category.skillCategory) > -1"
+                                   ng-click="toggleSelection(category.skillCategory)" id="{{category}}">
+                            <label for="{{category}}">{{category.skillCategory}}</label>
+                            <br>
+                        </span>
+
+                    </div>
+                    <div class="form-group col-md-6 col-sm-6">
+                        <label for="rawScore">Raw Score:</label>
+                        <input ng-model="rawScore" type="number" class="form-control" id="rawScore"
+                               placeholder="99" min="0" step="1" required>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button ng-click="addAssessment()" type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

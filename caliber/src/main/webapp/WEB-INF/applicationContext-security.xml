@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/security
+http://www.springframework.org/schema/security/spring-security.xsd">
+    <security:http auto-config="true" use-expressions="true">
+        <security:form-login login-page="/"/>
+        <!-- change to hasRole('ROLE_VP') after development is complete -->
+        <security:intercept-url pattern="/vp/**" access="permitAll"/>
+        <!-- change to hasRole('ROLE_QC') after development is complete -->
+        <security:intercept-url pattern="/qc/**" access="permitAll"/>
+        <!-- change to hasRole('ROLE_TRAINER') after development is complete -->
+        <security:intercept-url pattern="/trainer/**" access="permitAll" />
+        <security:intercept-url pattern="/all/**" access="permitAll" />
+        <security:csrf disabled="true"/>
+        <!-- logout functionality: delete cookies and redirect. Use /j_spring_security_logout as route -->
+        <security:logout delete-cookies="token, JSESSIONID"/>
+    </security:http>
+
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:user-service>
+                <security:user authorities="ROLE_VP" name="vp" />
+                <security:user authorities="ROLE_QC" name="qc"/>
+                <security:user authorities="ROLE_TRAINER" name="trainer"/>
+            </security:user-service>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+</beans>

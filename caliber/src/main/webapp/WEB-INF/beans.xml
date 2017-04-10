@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:security="http://www.springframework.org/schema/security"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<tx:annotation-driven/> <mvc:annotation-driven />
+	<context:component-scan base-package="com.revature.caliber" />
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/pages/" />
+		<property name="suffix" value=".html" />
+	</bean>
+
+	<mvc:resources mapping="/pages/**" location="/pages/" />
+	<mvc:resources mapping="/app/**" location="/app/"/>
+
+	<bean name="assessmentService" class="com.revature.caliber.gateway.services.impl.AssessmentServiceImpl">
+		<property name="hostname" value="#{systemEnvironment['CALIBER_SERVER_URL']}" />
+
+		<property name="insertAssessment" value="assessment/assessment/new"/>
+		<property name="deleteAssessment" value="assessment/assessment/delete" />
+		<property name="updateAssessment" value="assessment/assessment/update" />
+		<property name="getAllAssessmentsPath" value="assessment/assessment/all" />
+		<property name="getAssessmentsByWeekId" value="assessment/assessment/week" />
+
+
+		<property name="addGradePath" value="assessment/grades/create/"/>
+		<property name="updateGrade" value="assessment/grades/update/"/>
+		<property name="getGradesByAssessmentPath" value="assessment/grades/assessment/"/>
+		<property name="allGradesPath" value="assessment/grades/all" />
+		<property name="getGradesByTraineePath" value="assessment/grades/trainee" />
+
+		
+		<property name="updateTrainerNotePath" value="assessment/trainerNote/update/" />
+		<property name="deleteTrainerNotePath" value="assessment/trainerNote/delete/" />
+		<property name="createTrainerNotePath" value="assessment/trainerNote/new/" />
+		
+		<property name="createBatchNotePath" value="assessment/batchNote/new"/>
+		<property name="deleteBatchNotePath" value="assessment/batchNote/update"/>
+		<property name="updateBatchNotePath" value="assessment/batchNote/delete"/>
+		
+		<property name="createQCNotePath" value="assessment/qcnotes/new" />
+		<property name="updateQCNotePath" value="assessment/qcnotes/update" />
+	</bean>
+
+	<bean name="trainingService" class="com.revature.caliber.gateway.services.impl.TrainingServiceImpl">
+		<property name="hostname" value="#{systemEnvironment['CALIBER_SERVER_URL']}" />
+
+		<property name="newBatch" value="training/batch/create/" />
+		<property name="allBatch" value="training/batch/all/" />
+		<property name="allBatchesForTrainer" value="training/batch/byTrainerId/" />
+		<property name="allCurrentBatch" value="training/batch/current/" />
+		<property name="allCurrentBatchByTrainer" value="training/batch/current/" />
+		<property name="batchById" value="training/batch/byId/" />
+		<property name="updateBatch" value="training/batch/update/" />
+		<property name="deleteBatch" value="training/batch/delete/" />
+
+		<property name="addTraineePath" value="training/trainees/new" />
+		<property name="addTraineesPath" value="training/trainees/bulk" />
+		<property name="deleteTraineePath" value="training/trainees/delete" />
+		<property name="updateTraineePath" value="training/trainees/update" />
+		<property name="getTraineeByIdPath" value="training/trainees/byid/" />
+		<property name="getTraineeByNamePath" value="training/trainees/byemail/" />
+		<property name="getTraineesByBatchPath" value="training/trainees/bybatch/" />
+		<property name="getTraineesByTrainerPath" value="training/trainees/bytrainer" />
+
+		<property name="addTrainerPath" value="training/trainers/new" />
+		<property name="getAllTrainersPath" value="training/trainers/all" />
+		<property name="updateTrainerPath" value="training/trainers/update" />
+		<property name="getTrainerByIdPath" value="training/trainers/byid/" />
+		<property name="getTrainerByEmailPath" value="training/trainers/byemail/" />
+		<property name="getWeekByBatch" value="training/week/batchid/" />
+		
+		<property name="addWeekPath" value="training/week/new" />
+		<property name="getAllWeekPath" value="training/week/all" />
+	</bean>
+
+
+</beans>

@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row">
+
+        <!-- All Trainers -->
+        <div class="col-md-12">
+            <h1>
+                All Trainers
+            </h1>
+            <ul>
+                <li ng-repeat="trainer in all.allTrainers">
+                    Trainer: {{ trainer }}
+                </li>
+            </ul>
+        </div>
+
+        <!-- Trainer - All Batches -->
+        <div class="col-md-12">
+            <h1>
+                Trainer - All Batches
+            </h1>
+            <ul>
+                <li ng-repeat="batch in trainer.allBatches">
+                    Batch: {{ batch }}
+                </li>
+            </ul>
+        </div>
+
+        <!-- VP - All Batches -->
+        <div class="col-md-12">
+            <h1>
+                VP - All Batches
+            </h1>
+            <ul>
+                <li ng-repeat="batch in vp.allBatches">
+                    Batch: {{ batch }}
+                </li>
+            </ul>
+        </div>
+
+        <!-- QC - All Batches -->
+        <div class="col-md-12">
+            <h1>
+                QC - All Batches
+            </h1>
+            <ul>
+                <li ng-repeat="batch in vp.allBatches">
+                    Batch: {{ batch }}
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>

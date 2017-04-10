@@ -1,0 +1,112 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <ul class="nav nav-tabs">
+                <li role="button" class="dropdown"><a class="dropdown-toggle" ng-show="currentBatch"
+                                                      data-toggle="dropdown">{{currentBatch.trainingName}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a role="button" ng-click="selectCurrentBatch(-1)">None</a></li>
+                        <li ng-repeat="menuItem in batches track by $index"><a
+                                role="button" ng-click="selectCurrentBatch($index)">{{menuItem.trainingName}}</a>
+                        </li>
+                    </ul>
+                </li>
+                <li role="button" class="dropdown"><a class="dropdown-toggle" ng-show="hideOtherTabs()"
+                                                      data-toggle="dropdown">{{currentTrainee.name}}<span
+                        class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a role="button" ng-click="selectCurrentTrainee(-1)">None</a></li>
+                        <li ng-repeat="menuItem in currentBatch.trainees track by $index"><a
+                                role="button" ng-click="selectCurrentTrainee($index)">{{menuItem.name}}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="top10 data-container">
+        <div class="row">
+            <div class="col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12" ng-show="showCharts(0)">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">All Current Batches</div>
+                            <div class="panel-body">
+                                <div class="chart-container top5">
+                                    <canvas id="batchesRank" class="chart chart-radar"
+                                            chart-data="radarData"
+                                            chart-labels="radarLabels" chart-series="radarSeries"
+                                            height="100" width="100">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6" ng-show="showCharts(1)">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Batch {{currentBatch.trainingName}} Technology Progress</div>
+                            <div class="panel-body">
+                                <div class="chart-container top5">
+                                    <canvas id="radar" class="chart chart-radar"
+                                            chart-data="radarData" chart-options="radarOptions"
+                                            chart-labels="radarLabels" chart-series="radarSeries"
+                                            height="100" width="100">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6" ng-show="showCharts(1)">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Week by Week progression of {{currentBatch.trainingName}}</div>
+                            <div class="panel-body">
+                                <div class="chart-container top5">
+                                    <canvas id="batch-line" class="chart chart-line"
+                                            chart-data="batchProgressData" chart-labels="batchProgressLabels"
+                                            chart-series="batchProgressSeries" chart-options="batchProgressOptions"
+                                            chart-dataset-override="batchProgressDatasetOverride"
+                                            height="100" width="100">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6" ng-show="showCharts(3)">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Week by week progression for a {{currentTrainee.name}}</div>
+                            <div class="panel-body">
+                                <div class="chart-container top5">
+                                    <canvas id="line" class="chart chart-line"
+                                            chart-data="lineData" chart-labels="lineLabels"
+                                            chart-series="lineSeries" chart-options="lineOptions"
+                                            chart-dataset-override="lineDatasetOverride"
+                                            chart-click="lineOnClick" height="100" width="100">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6" ng-show="showCharts(3)">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Averages scores per technology
+                                for trainee {{currentTrainee.name}}
+                            </div>
+                            <div class="panel-body">
+                                <div class="chart-container top5">
+                                    <canvas id="radar2" class="chart chart-radar" chart-data="radarData"
+                                            chart-labels="radarLabels"
+                                            chart-options="radarOptions" height="100" width="100">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
